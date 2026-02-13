@@ -13,22 +13,38 @@
         <param-name>localisation</param-name>
         <param-value>jdbc:mysql://localhost:3306/student_db</param-value>
     </context-param>
-    
+
+    <!-- SERVLETS -->
+
+    <!-- InformationServlet -->
     <servlet>
-        <servlet-name>hello</servlet-name>
-        <servlet-class>com.example.studyservlet.HelloServlet</servlet-class>
+        <servlet-name>information</servlet-name>
+        <servlet-class>com.example.studyservlet.InformationServlet</servlet-class>
 
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>hello</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>information</servlet-name>
+        <url-pattern>/information</url-pattern>
+    </servlet-mapping>
+
+    <!-- ConfirmationServlet -->
+    <servlet>
+        <servlet-name>confirmation</servlet-name>
+        <servlet-class>com.example.studyservlet.ConfirmationServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>confirmation</servlet-name>
+        <url-pattern>/confirmation</url-pattern>
     </servlet-mapping>
     
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/NullPointeurException.html</location>
     </error-page>
+
+
 
     <session-config>
         <session-timeout>30</session-timeout>
@@ -39,7 +55,6 @@
             <http-only>true</http-only>
             <secure>true</secure>
         </cookie-config>
-        <tracking-mode>COOKIE</tracking-mode>
         <tracking-mode>URL</tracking-mode>
     </session-config>
 </web-app>
