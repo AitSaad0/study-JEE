@@ -29,4 +29,17 @@
         <error-code>500</error-code>
         <location>/WEB-INF/NullPointeurException.html</location>
     </error-page>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <name>JSESSIONID</name>
+            <domain>exampl.com</domain>
+            <path>/</path>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+        <tracking-mode>URL</tracking-mode>
+    </session-config>
 </web-app>
