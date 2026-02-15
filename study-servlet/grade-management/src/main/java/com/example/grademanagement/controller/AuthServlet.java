@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +29,13 @@ public class AuthServlet extends HttpServlet {
         logger.info("the request method is {} ", req.getMethod());
 
         if ("student".equalsIgnoreCase(role)) {
-            resp.sendRedirect(req.getContextPath() + "/student_dashboard");
+            HttpSession session = req.getSession();
+            session.setAttribute("full_name", "saad");
+            session.setAttribute("email", email);
+            session.setAttribute("role", role);
+            session.setAttribute("password", req.getParameter("password"));
+            String dashboardUrl = resp.encodeRedirectURL(req.getContextPath() + "/student_dashboard");
+            resp.sendRedirect(dashboardUrl);
         } else if ("prof".equalsIgnoreCase(role)) {
             resp.sendRedirect(req.getContextPath() + "/prof_dashboard");
         } else {

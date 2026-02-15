@@ -5,6 +5,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,7 @@ public class AuthFilter implements Filter {
 
             logger.info("Validation successful for: {}", email);
         }
+
 
         chain.doFilter(request, response);
         logger.info("we are the end of the auth filter");

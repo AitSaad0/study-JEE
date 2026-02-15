@@ -16,6 +16,20 @@
         <param-value>jdbc:mysql://localhost:3306/grade_db</param-value>
     </context-param>
 
+    <!-- Session -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <name>JSESSIONID</name>
+            <domain>example.com</domain>
+            <path>/</path>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+        <tracking-mode>URL</tracking-mode>
+    </session-config>
+
     <!-- filters -->
     <filter>
         <filter-name>logging</filter-name>
