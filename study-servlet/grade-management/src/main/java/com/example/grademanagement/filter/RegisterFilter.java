@@ -1,5 +1,7 @@
 package com.example.grademanagement.filter;
 
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,27 +24,68 @@ public class RegisterFilter implements Filter{
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        String path = req.getRequestURI();
-
-        logger.info("the path is {}", path);
-
-        if(path.endsWith("register.html")){
+        if ("POST".equalsIgnoreCase(req.getMethod())) {
+            String fullName = req.getParameter("full_name");
+            String email = req.getParameter("email");
+            String role = req.getParameter("role");
             String password = req.getParameter("password");
             String confirm_password = req.getParameter("confirm_password");
-            logger.info("password : {} , confirm password : {}", password , confirm_password);
-            if(!password.equals(confirm_password) || password.isEmpty() || confirm_password.isEmpty()){
-                try{
-                    resp.sendRedirect(req.getRequestURI() + "/index.html");
-                }catch (IOException e){
-                    System.out.println("redirection failed");
-                }
+
+
+
+
+            if(fullName.isEmpty()){
+                logger.warn("full name is empty");
+                resp.sendRedirect(req.getContextPath() + "/register.html");
+                return;
+            }
+            if(email.isEmpty()){
+                logger.warn("email is empty");
+                resp.sendRedirect(req.getContextPath() + "/register.html");
+                return;
+            }
+            if(role.isEmpty()){
+                logger.warn("role is empty");
+                resp.sendRedirect(req.getContextPath() + "/register.html");
+                return;
+            }
+            if(password.isEmpty()){
+                logger.warn("password is empty");
+                resp.sendRedirect(req.getContextPath() + "/register.html");
+                return;
+            }
+            if(confirm_password.isEmpty()){
+                logger.warn("confirm_password is empty");
+                resp.sendRedirect(req.getContextPath() + "/register.html");
+                return;
+            }
+            if(!password.equals(confirm_password)){
+                resp.sendRedirect(req.getContextPath() + "/register.html");
+                return;
             }
 
-
-
+            if (!isValidEmail(email)) {
+                logger.warn("Invalid email attempt: {}", email);
+                resp.sendRedirect("register.html");
+                return;
+            }
         }
+
+
+
         chain.doFilter(request, response);
         logger.info("we are the end of the Credential filter");
 
+    }
+
+    private boolean isValidEmail(String email) {
+        if (email == null) return false;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+            return true;
+        } catch (AddressException ex) {
+            return false;
+        }
     }
 }
