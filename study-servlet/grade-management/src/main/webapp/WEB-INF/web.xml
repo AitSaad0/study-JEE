@@ -42,9 +42,30 @@
         <servlet-name>StudentDashboard</servlet-name>
     </filter-mapping>
 
+    <filter>
+        <filter-name>auth-filter</filter-name>
+        <filter-class>com.example.grademanagement.filter.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>auth-filter</filter-name>
+        <servlet-name>auth</servlet-name>
+    </filter-mapping>
+
     <!-- Servlets -->
 
     <!-- Student Dashboard -->
+
+    <servlet>
+        <servlet-name>auth</servlet-name>
+        <servlet-class>com.example.grademanagement.controller.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>auth</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+
+
     <servlet>
         <servlet-name>StudentDashboard</servlet-name>
         <servlet-class>com.example.grademanagement.dashboard.StudentDashboard</servlet-class>

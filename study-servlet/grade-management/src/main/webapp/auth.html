@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<h1>Login</h1>
+<form action="auth" method="POST">
+    <label>Email: <input type="email" name="email" required></label><br><br>
+    <label>Password: <input type="password" name="password" required></label><br><br>
+
+    <label>Login as:
+        <select name="role" required>
+            <option value="student">Student</option>
+            <option value="prof">Professor</option>
+        </select>
+    </label><br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+</body>
+</html>

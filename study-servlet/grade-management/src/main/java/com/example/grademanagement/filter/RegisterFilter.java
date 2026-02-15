@@ -18,7 +18,7 @@ public class RegisterFilter implements Filter{
             FilterChain chain
     ) throws IOException, ServletException {
 
-        logger.info("start credential Filter");
+        logger.info("start register Filter");
 
 
         HttpServletRequest req = (HttpServletRequest) request;
@@ -60,6 +60,7 @@ public class RegisterFilter implements Filter{
                 return;
             }
             if(!password.equals(confirm_password)){
+                logger.warn("confirm message is different from the password");
                 resp.sendRedirect(req.getContextPath() + "/register.html");
                 return;
             }
@@ -74,7 +75,7 @@ public class RegisterFilter implements Filter{
 
 
         chain.doFilter(request, response);
-        logger.info("we are the end of the Credential filter");
+        logger.info("we are the end of the register filter");
 
     }
 
