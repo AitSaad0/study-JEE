@@ -3,4 +3,50 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+    
+    <!-- data base -->
+
+    <context-param>
+        <param-name>jdbc.Driver</param-name>
+        <param-value>com.mysql.cj.jdbc.Driver</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>localisation</param-name>
+        <param-value>jdbc:mysql://localhost:3306/grade_db</param-value>
+    </context-param>
+
+    <!-- Servlets -->
+
+    <!-- Student Dashboard -->
+    <servlet>
+        <servlet-name>StudentDashboard</servlet-name>
+        <servlet-class>com.example.grademanagement.dashboard.StudentDashboard</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentDashboard</servlet-name>
+        <url-pattern>/student_dashboard</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- filters -->
+    <filter>
+        <filter-name>logging</filter-name>
+        <filter-class>com.example.grademanagement.filter.LoggingFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>logging</filter-name>
+        <url-pattern>/logging</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>credentiel</filter-name>
+        <filter-class>com.example.grademanagement.filter.CredentielFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>credentiel</filter-name>
+        <url-pattern>/credentiel</url-pattern>
+    </filter-mapping>
 </web-app>
