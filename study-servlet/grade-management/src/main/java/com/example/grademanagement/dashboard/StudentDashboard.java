@@ -1,5 +1,6 @@
 package com.example.grademanagement.dashboard;
 
+import com.example.grademanagement.config.DBConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,22 +21,12 @@ public class StudentDashboard extends HttpServlet {
     private Connection conn;
     private static final Logger logger = LoggerFactory.getLogger(StudentDashboard.class.getName());
     public void init() throws ServletException {
-
-        String pilot = getServletContext().getInitParameter("jdbc.Driver");
-        String db = getServletContext().getInitParameter("localisation");
-
-        try{
-            Class.forName(pilot);
-            conn = DriverManager.getConnection(db,    "saad", "Saad@1234");
-            logger.info("db connected");
-        } catch (ClassNotFoundException e) {
-            logger.info("JDBC Driver not found: {}", pilot);
-            throw new ServletException(e);
-        }catch (SQLException e){
-            logger.info("Cannot connect to database: {} ", db);
-            throw new ServletException(e);
+        try {
+            this.conn = DBConnection.getConnection(getServletContext());
+            logger.info("AuthFilter: Connection successful");
+        } catch (Exception e) {
+            throw new ServletException("Database connection failed in Filter", e);
         }
-
     }
 
 
@@ -44,14 +35,15 @@ public class StudentDashboard extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if(session != null){
-            String fullName = (String)session.getAttribute("full_name");
+            String name = (String)session.getAttribute("name");
             String email = (String)session.getAttribute("email");
             String role = (String)session.getAttribute("role");
-            String password = (String)session.getAttribute("password");
 
             PrintWriter out = response.getWriter();
             out.println("<HTML> <BODY>");
-            out.println("<h1> hello " + fullName + " </h1> <br> <br>");
+            out.println("<h1> hello " + name + " </h1> <br> <br>");
+            out.println("<h1> email " + email + " </h1> <br> <br>");
+            out.println("<h1> role " + role + " </h1> <br> <br>");
             out.println("<h3> your grade should be here </h3>");
             out.println("</BODY> </HTML>");
         }
