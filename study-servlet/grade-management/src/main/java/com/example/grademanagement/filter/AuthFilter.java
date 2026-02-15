@@ -30,54 +30,57 @@ public class AuthFilter implements Filter {
             throw new ServletException("Database connection failed in Filter", e);
         }
     }
+
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        logger.info("start auth Filter");
-
-
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        String email = "";
-        String password = "";
-
+        // 1. Only run this logic if it's a POST request (Login Attempt)
         if ("POST".equalsIgnoreCase(req.getMethod())) {
+            String email = req.getParameter("email");
+            String password = req.getParameter("password");
 
-            email = req.getParameter("email");
-            password = req.getParameter("password");
-
+            // Format Validation
             if (isAnyEmpty(email, password) || !isValidEmail(email)) {
                 logger.warn("Validation failed for email: {}", email);
                 resp.sendRedirect(req.getContextPath() + "/auth.html?error=invalid_data");
-                return;
+                return; // STOP HERE
             }
 
-            logger.info("Validation successful for: {}", email);
-        }
+            // Database Authentication
+            String sql = "SELECT full_name, role FROM users WHERE email = ? AND password = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, email);
+                pstmt.setString(2, password);
 
-        String sql = "SELECT full_name, role FROM users WHERE email = ? AND password = ?";
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        // Success: Pass data to the Servlet
+                        req.setAttribute("auth_name", rs.getString("full_name"));
+                        req.setAttribute("auth_role", rs.getString("role"));
+                        req.setAttribute("auth_email", email);
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, email);
-            pstmt.setString(2, password);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    req.setAttribute("auth_name", rs.getString("full_name"));
-                    req.setAttribute("auth_role", rs.getString("role"));
-                    req.setAttribute("auth_email", email);
+                        // Allow the request to reach AuthServlet
+                        chain.doFilter(request, response);
+                    } else {
+                        // Fail: Wrong credentials
+                        logger.warn("Login failed for email: {}", email);
+                        resp.sendRedirect(req.getContextPath() + "/auth.html?error=bad_creds");
+                        // No chain.doFilter here! We want to stop the request.
+                    }
                 }
+            } catch (SQLException e) {
+                logger.error("Database error during authentication", e);
+                resp.sendRedirect(req.getContextPath() + "/auth.html?error=db_error");
             }
-        } catch (SQLException e) {
-            logger.error("Database error during authentication", e);
-            resp.sendRedirect(req.getContextPath() + "/auth.html");
+        } else {
+            // 2. It's a GET request (just loading the page) - let it pass to the Servlet/HTML
+            chain.doFilter(request, response);
         }
-
-        chain.doFilter(request, response);
-        logger.info("we are the end of the auth filter");
-
     }
+
     private boolean isAnyEmpty(String... fields) {
         for (String field : fields) {
             if (field == null || field.trim().isEmpty()) return true;

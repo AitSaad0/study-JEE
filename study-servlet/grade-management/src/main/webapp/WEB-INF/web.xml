@@ -42,18 +42,14 @@
     </filter-mapping>
 
     <filter>
-        <filter-name>register</filter-name>
+        <filter-name>register-filter</filter-name>
         <filter-class>com.example.grademanagement.filter.RegisterFilter</filter-class>
     </filter>
 
-    <filter-mapping>
-        <filter-name>register</filter-name>
-        <url-pattern>/register.html</url-pattern>
-    </filter-mapping>
 
     <filter-mapping>
-        <filter-name>register</filter-name>
-        <servlet-name>StudentDashboard</servlet-name>
+        <filter-name>register-filter</filter-name>
+        <servlet-name>register</servlet-name>
     </filter-mapping>
 
     <filter>
@@ -77,6 +73,15 @@
     <servlet-mapping>
         <servlet-name>auth</servlet-name>
         <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>register</servlet-name>
+        <servlet-class>com.example.grademanagement.controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>register</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
 

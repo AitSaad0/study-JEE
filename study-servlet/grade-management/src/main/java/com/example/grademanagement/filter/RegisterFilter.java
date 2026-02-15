@@ -31,9 +31,6 @@ public class RegisterFilter implements Filter{
             String password = req.getParameter("password");
             String confirm_password = req.getParameter("confirm_password");
 
-
-
-
             if(fullName.isEmpty()){
                 logger.warn("full name is empty");
                 resp.sendRedirect(req.getContextPath() + "/register.html");

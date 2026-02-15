@@ -50,17 +50,7 @@ public class StudentDashboard extends HttpServlet {
 
 
         /*
-        String sql = "INSERT INTO users (full_name, email, role, password) VALUES (?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1, fullName);
-            stmt.setString(2, email);
-            stmt.setString(3, role);
-            stmt.setString(4, password);
-            stmt.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("insert data failed : "+ e );
-        }
          */
 
     }
