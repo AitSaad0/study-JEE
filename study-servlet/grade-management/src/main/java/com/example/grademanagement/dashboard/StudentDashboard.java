@@ -4,6 +4,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,12 +13,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class StudentDashboard extends HttpServlet {
 
     private Connection conn;
-    private static final Logger logger = Logger.getLogger(StudentDashboard.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(StudentDashboard.class.getName());
     public void init() throws ServletException {
 
         String pilot = getServletContext().getInitParameter("jdbc.Driver");
@@ -27,10 +28,10 @@ public class StudentDashboard extends HttpServlet {
             conn = DriverManager.getConnection(db,    "saad", "Saad@1234");
             logger.info("db connected");
         } catch (ClassNotFoundException e) {
-            logger.info("JDBC Driver not found: " + pilot);
+            logger.info("JDBC Driver not found: {}", pilot);
             throw new ServletException(e);
         }catch (SQLException e){
-            logger.info("Cannot connect to database: " + db);
+            logger.info("Cannot connect to database: {} ", db);
             throw new ServletException(e);
         }
 
@@ -39,6 +40,7 @@ public class StudentDashboard extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        logger.info("we are here");
         String fullName = request.getParameter("full_name");
         String email = request.getParameter("email");
         String role = request.getParameter("role");
@@ -54,6 +56,7 @@ public class StudentDashboard extends HttpServlet {
         }catch(SQLException e){
             System.out.println("insert data failed : "+ e );
         }
+
 
 
 
