@@ -57,4 +57,16 @@ public class RegisterServlet extends HttpServlet {
 
     }
 
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Register Servlet Service has been started");
+
+
+        String method = request.getMethod();
+        if(method.equals("POST")){
+            doPost(request, response);
+        }
+    }
+
 }
