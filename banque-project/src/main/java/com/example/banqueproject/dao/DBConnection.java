@@ -16,6 +16,7 @@ public class DBConnection {
             );
             System.out.println("DB Connected!");
         } catch (Exception e) {
+            System.out.println("problem is here");
             e.printStackTrace();
         }
     }
