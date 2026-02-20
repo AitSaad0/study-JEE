@@ -11,7 +11,7 @@
     <title>s'inscrir</title>
 </head>
 <body>
-    <form action="inscrir" method="post">
+    <form action="acceuil" method="post">
 
         <label> email <input type="text" name="email"></label><br>
         <label> nom <input type="text" name="nom"></label><br>
@@ -22,5 +22,12 @@
         <label> mdp <input type="text" name="mdp"></label><br>
         <button type="submit"> s'inscrir </button>
     </form>
+    <% if (request.getAttribute("errorMessage") != null) { %>
+    <div style="color:red;">
+        <%= request.getAttribute("errorMessage") %>
+    </div> <br><br>
+    <% } %>
+
+    <a href="identifier" > authentifier</a>
 </body>
 </html>

@@ -11,12 +11,11 @@
     <title>Acceuil</title>
 </head>
 <body>
-    <% String nom = request.getParameter("nom"); %>
 
-    <h1>Bonjour Monsieur <%= nom %></h1>
+    <h1>Bonjour Monsieur ${sessionScope.client.nom()}</h1>
 
-    <a href="/catalogue">Consulter le  catalogue</a>
-    <a href="/catalogue">Suivre mes commandes</a>
+    <a href="/catalogue">Consulter le  catalogue</a> <br><br>
+    <a href="/catalogue">Suivre mes commandes</a><br><br>
     <a href="/catalogue">Visualiser votre panier</a>
 
 </body>

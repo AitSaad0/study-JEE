@@ -5,7 +5,7 @@
          version="6.0">
     
     <welcome-file-list>
-        <welcome-file>inscrir.jsp</welcome-file>
+        <welcome-file>inscrir</welcome-file>
     </welcome-file-list>
 
     <listener>
@@ -20,5 +20,25 @@
     <servlet-mapping>
         <servlet-name>inscrir</servlet-name>
         <url-pattern>/inscrir</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>acceuil</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.AcceuilServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>acceuil</servlet-name>
+        <url-pattern>/acceuil</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>identifier</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.IdentifierServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>identifier</servlet-name>
+        <url-pattern>/identifier</url-pattern>
     </servlet-mapping>
 </web-app>

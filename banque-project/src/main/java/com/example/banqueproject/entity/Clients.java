@@ -11,6 +11,17 @@ public class Clients {
     private String tel;
     private String mdp;
 
+    public Clients(int id, String email, String nom, String adresse, String codePostal, String ville, String tel, String mdp){
+        this.id = id;
+        this.email = email;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.tel = tel;
+        this.mdp = mdp;
+    }
+
     public Clients(String email, String nom, String adresse, String codePostal, String ville, String tel, String mdp){
         this.email = email;
         this.nom = nom;

@@ -6,6 +6,7 @@ import com.example.banqueproject.entity.Clients;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAOImpl implements UserDAO {
@@ -36,4 +37,38 @@ public class UserDAOImpl implements UserDAO {
 
         return false;
     }
+
+
+    @Override
+    public Clients findByEmail(String email) {
+        conn = DBConnection.getConnection();
+        String sql = "SELECT * FROM clients WHERE email = ?";
+
+        try (PreparedStatement pstm = conn.prepareStatement(sql)) {
+
+            pstm.setString(1, email);
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
+                    return mapToClient(rs); // Méthode utilitaire pour mapper
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Clients mapToClient(ResultSet rs) throws SQLException {
+        return new Clients(
+                rs.getInt("id"),
+                rs.getString("email"),
+                rs.getString("nom"),
+                rs.getString("adresse"),
+                rs.getString("codePostal"),
+                rs.getString("ville"),
+                rs.getString("tel"),
+                rs.getString("pwd")
+        );
+    }
 }
+
