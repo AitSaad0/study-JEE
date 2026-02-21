@@ -80,7 +80,7 @@
         for(PrintedArticleDto article : articles) {
     %>
     <tr>
-        <td><%= article.reference()%></td>
+        <td> <a href="catalogue"><%= article.reference()%></a></td>
         <td><%= article.titre()%></td>
         <td><%= article.auteur()%></td>
         <td><%= article.photo()%></td>
