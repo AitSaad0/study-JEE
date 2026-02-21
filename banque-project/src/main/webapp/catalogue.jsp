@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.banqueproject.entity.Categories" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.security.Principal" %>
+<%@ page import="com.example.banqueproject.dto.PrintedArticleDto" %><%--
   Created by IntelliJ IDEA.
   User: amzazi
   Date: 2/20/26
@@ -43,20 +45,23 @@
 <h1>Bienvenue ${sessionScope.client.nom()} </h1>
 <h2>Catégorie</h2>
 
-<% List<Categories> listeCategories  = (ArrayList<Categories>)request.getSession().getAttribute("categories") ;%>
+<%
+    List<Categories> listeCategories  = (ArrayList<Categories>)request.getSession().getAttribute("categories") ;
+    List<PrintedArticleDto> articles = (List<PrintedArticleDto>) session.getAttribute("printedArticles");
+%>
 <div class="filter-section">
     <label for="genre">Choisir le categorie :</label>
-    <select id="genre" name="genre">
-        <option value="">-- Toutes les catégories --</option>
+    <form action="catalogue" method="get">
+        <select id="genre" name="category">
+            <option value="">-- Toutes les catégories --</option>
+            <option value="all">All</option>
+            <% for (Categories c : listeCategories) { %>
+            <option value="<%= c.getIdCat() %>"><%= c.getCat() %></option>
+            <% } %>
+        </select>
 
-        <% if (listeCategories != null) {
-            for (Categories c : listeCategories) { %>
-        <option value="<%= c.getIdCat() %>">
-            <%= c.getCat() %>
-        </option>
-        <%  }
-        } %>
-    </select>
+        <button type="submit">Filtrer</button>
+    </form>
 </div>
 
 <table>
@@ -71,22 +76,20 @@
     </tr>
     </thead>
     <tbody>
+    <%
+        for(PrintedArticleDto article : articles) {
+    %>
     <tr>
-        <td>REF-001</td>
-        <td>Le Petit Prince</td>
-        <td>Antoine de Saint-Exupéry</td>
-        <td><img src="https://via.placeholder.com/50" alt="Livre" class="book-img"></td>
-        <td>15.00 €</td>
+        <td><%= article.reference()%></td>
+        <td><%= article.titre()%></td>
+        <td><%= article.auteur()%></td>
+        <td><%= article.photo()%></td>
+        <td><%= article.prix()%></td>
         <td><a href="ajouter?id=001" class="btn-panier">Ajouter au panier</a></td>
     </tr>
-    <tr>
-        <td>REF-002</td>
-        <td>L'Étranger</td>
-        <td>Albert Camus</td>
-        <td><img src="https://via.placeholder.com/50" alt="Livre" class="book-img"></td>
-        <td>12.50 €</td>
-        <td><a href="ajouter?id=002" class="btn-panier">Ajouter au panier</a></td>
-    </tr>
+    <%
+        }
+    %>
     </tbody>
 </table>
 
