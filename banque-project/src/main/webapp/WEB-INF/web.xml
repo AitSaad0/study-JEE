@@ -41,4 +41,14 @@
         <servlet-name>identifier</servlet-name>
         <url-pattern>/identifier</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>catalogue</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.CatalogueServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>catalogue</servlet-name>
+        <url-pattern>/catalogue</url-pattern>
+    </servlet-mapping>
 </web-app>

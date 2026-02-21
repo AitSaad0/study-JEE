@@ -42,6 +42,7 @@ public class InscrirServlet extends HttpServlet {
         ClientDto clientDto = ClientMapper.clientToCLientDto(client);
         if(result){
             session.setAttribute("client", clientDto);
+            System.out.println(clientDto.nom());
             RequestDispatcher rd = request.getRequestDispatcher("/acceuil.jsp");
             rd.forward(request, response);
         }else{

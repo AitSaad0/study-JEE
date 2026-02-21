@@ -5,9 +5,6 @@ import com.example.banqueproject.dao.inte.UserDAO;
 import com.example.banqueproject.entity.Clients;
 import com.example.banqueproject.service.UserService;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class UserServiceImpl implements UserService {
 
     private UserDAO userDAO = new UserDAOImpl();

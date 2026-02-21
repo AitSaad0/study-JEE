@@ -11,7 +11,7 @@
     <title>s'inscrir</title>
 </head>
 <body>
-    <form action="acceuil" method="post">
+    <form action="inscrir" method="post">
 
         <label> email <input type="text" name="email"></label><br>
         <label> nom <input type="text" name="nom"></label><br>

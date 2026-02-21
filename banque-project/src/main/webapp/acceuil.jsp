@@ -14,7 +14,7 @@
 
     <h1>Bonjour Monsieur ${sessionScope.client.nom()}</h1>
 
-    <a href="/catalogue">Consulter le  catalogue</a> <br><br>
+    <a href="catalogue">Consulter le  catalogue</a> <br><br>
     <a href="/catalogue">Suivre mes commandes</a><br><br>
     <a href="/catalogue">Visualiser votre panier</a>
 
