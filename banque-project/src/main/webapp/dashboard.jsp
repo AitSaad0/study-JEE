@@ -48,7 +48,7 @@
 </head>
 <body>
 
-<h1>Bonjour Monsieur ${sessionScope.client.nom()}</h1>
+<h1>Bonjour Monsieur ${sessionScope.user.name()}</h1>
 
 <a href="catalogue">Consulter le catalogue</a>
 <a href="/commandes">Suivre mes commandes</a>

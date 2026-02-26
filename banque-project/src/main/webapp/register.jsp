@@ -81,7 +81,7 @@
 </head>
 <body>
 <div class="register-container">
-    <h2>Créer un compte</h2>
+    <h2>do you want to register</h2>
 
     <% if (request.getAttribute("errorMessage") != null) { %>
     <div class="error-message">
@@ -89,32 +89,32 @@
     </div>
     <% } %>
 
-    <form action="inscrir" method="post">
+    <form action="register" method="post">
         <label>Email</label>
         <input type="text" name="email" placeholder="Votre email">
 
-        <label>Nom</label>
-        <input type="text" name="nom" placeholder="Votre nom">
+        <label>name</label>
+        <input type="text" name="name" placeholder="your name">
 
-        <label>Adresse</label>
-        <input type="text" name="adresse" placeholder="Votre adresse">
+        <label>Address</label>
+        <input type="text" name="address" placeholder="your address">
 
-        <label>Code postal</label>
-        <input type="text" name="codePostal" placeholder="Code postal">
+        <label>ZIP code</label>
+        <input type="text" name="zip" placeholder="Zip code">
 
-        <label>Ville</label>
-        <input type="text" name="ville" placeholder="Ville">
+        <label>city</label>
+        <input type="text" name="city" placeholder="city">
 
-        <label>Téléphone</label>
-        <input type="text" name="tel" placeholder="Numéro de téléphone">
+        <label>phone number</label>
+        <input type="text" name="tel" placeholder="phone number">
 
-        <label>Mot de passe</label>
-        <input type="password" name="mdp" placeholder="Mot de passe">
+        <label>password</label>
+        <input type="password" name="password" placeholder="password">
 
-        <button type="submit">S'inscrire</button>
+        <button type="submit">register</button>
     </form>
 
-    <a href="identifier">Déjà inscrit ? Se connecter</a>
+    <a href="auth">already have account ? login</a>
 </div>
 </body>
 </html>

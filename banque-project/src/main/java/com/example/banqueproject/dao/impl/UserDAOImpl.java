@@ -2,7 +2,7 @@ package com.example.banqueproject.dao.impl;
 
 import com.example.banqueproject.dao.DBConnection;
 import com.example.banqueproject.dao.inte.UserDAO;
-import com.example.banqueproject.entity.Clients;
+import com.example.banqueproject.entity.Users;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,19 +13,19 @@ public class UserDAOImpl implements UserDAO {
     private Connection conn;
 
     @Override
-    public boolean save(Clients client){
+    public boolean save(Users user){
         conn = DBConnection.getConnection();
 
-        String sql = "INSERT INTO clients (email, nom, adresse, codePostal, ville, tel, pwd) values (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO users (email, name, address, zip, city, tel, password) values (?,?,?,?,?,?,?)";
 
         try(PreparedStatement pstm = conn.prepareStatement(sql)){
-            pstm.setString(1, client.getEmail());
-            pstm.setString(2, client.getNom());
-            pstm.setString(3, client.getAdresse());
-            pstm.setString(4, client.getCodePostal());
-            pstm.setString(5, client.getVille());
-            pstm.setString(6, client.getTel());
-            pstm.setString(7, client.getMdp());
+            pstm.setString(1, user.getEmail());
+            pstm.setString(2, user.getName());
+            pstm.setString(3, user.getAddress());
+            pstm.setString(4, user.getZip());
+            pstm.setString(5, user.getCity());
+            pstm.setString(6, user.getTel());
+            pstm.setString(7, user.getPassword());
             int rowsInserted = pstm.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("A new student was inserted successfully!");
@@ -40,16 +40,16 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public Clients findByEmail(String email) {
+    public Users findByEmail(String email) {
         conn = DBConnection.getConnection();
-        String sql = "SELECT * FROM clients WHERE email = ?";
+        String sql = "SELECT * FROM users WHERE email = ?";
 
         try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 
             pstm.setString(1, email);
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
-                    return mapToClient(rs); // Méthode utilitaire pour mapper
+                    return mapToClient(rs);
                 }
             }
         } catch (SQLException e) {
@@ -58,16 +58,16 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-    private Clients mapToClient(ResultSet rs) throws SQLException {
-        return new Clients(
+    private Users mapToClient(ResultSet rs) throws SQLException {
+        return new Users(
                 rs.getInt("id"),
                 rs.getString("email"),
-                rs.getString("nom"),
-                rs.getString("adresse"),
-                rs.getString("codePostal"),
-                rs.getString("ville"),
+                rs.getString("name"),
+                rs.getString("address"),
+                rs.getString("zip"),
+                rs.getString("city"),
                 rs.getString("tel"),
-                rs.getString("pwd")
+                rs.getString("password")
         );
     }
 }

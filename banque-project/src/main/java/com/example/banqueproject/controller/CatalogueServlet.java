@@ -23,35 +23,38 @@ public class CatalogueServlet extends HttpServlet {
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-        response.setContentType("text/html]");
+        response.setContentType("text/html");
         HttpSession session = request.getSession(false);
         String idCatStr = request.getParameter("category");
 
 
-        if(session != null){
-            List<Categories> categories = categoriesService.getAllCategories();
-            session.setAttribute("categories", categories);
-            List<PrintedArticleDto> printedArticles;
-            try {
-                if (idCatStr != null && !idCatStr.isEmpty() && !idCatStr.equalsIgnoreCase("all")) {
-                    int idCat = Integer.parseInt(idCatStr);
-                    printedArticles = articlesService.getAllArticlesByCategory(idCat);
-                } else {
-                    printedArticles = articlesService.getAllArticles();
-                }
+        if (session == null) {
+            response.sendRedirect(request.getContextPath() + "/auth");
+            return;
+        }
 
-                session.setAttribute("printedArticles", printedArticles);
-
-            } catch (NoSuchElementException e) {
-                RequestDispatcher rd = request.getRequestDispatcher("/catalogue.jsp?category=all");
-                rd.forward(request, response);
-                return;
+        List<Categories> categories = categoriesService.getAllCategories();
+        session.setAttribute("categories", categories);
+        List<PrintedArticleDto> printedArticles;
+        try {
+            if (idCatStr != null && !idCatStr.isEmpty() && !idCatStr.equalsIgnoreCase("all")) {
+                int idCat = Integer.parseInt(idCatStr);
+                printedArticles = articlesService.getAllArticlesByCategory(idCat);
+            } else {
+                printedArticles = articlesService.getAllArticles();
             }
 
+            session.setAttribute("printedArticles", printedArticles);
 
-            RequestDispatcher rd = request.getRequestDispatcher("/catalogue.jsp");
+        } catch (NoSuchElementException e) {
+            RequestDispatcher rd = request.getRequestDispatcher("/catalogue.jsp?category=all");
             rd.forward(request, response);
-
+            return;
         }
-       }
+
+
+        RequestDispatcher rd = request.getRequestDispatcher("/catalogue.jsp");
+        rd.forward(request, response);
+
+    }
 }

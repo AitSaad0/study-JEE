@@ -3,43 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
-    
+
     <welcome-file-list>
-        <welcome-file>inscrir</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 
     <listener>
         <listener-class>com.example.banqueproject.listener.AppListener</listener-class>
     </listener>
 
+    <!-- filters -->
+    <filter>
+        <filter-name>access</filter-name>
+        <filter-class>com.example.banqueproject.filter.AccessFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>access</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- servlets -->
     <servlet>
-        <servlet-name>inscrir</servlet-name>
-        <servlet-class>com.example.banqueproject.controller.InscrirServlet</servlet-class>
+        <servlet-name>register</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.RegisterServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
-        <servlet-name>inscrir</servlet-name>
-        <url-pattern>/inscrir</url-pattern>
+        <servlet-name>register</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>acceuil</servlet-name>
-        <servlet-class>com.example.banqueproject.controller.AcceuilServlet</servlet-class>
+        <servlet-name>home</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.HomeServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>acceuil</servlet-name>
-        <url-pattern>/acceuil</url-pattern>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>identifier</servlet-name>
-        <servlet-class>com.example.banqueproject.controller.IdentifierServlet</servlet-class>
+        <servlet-name>auth</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.AuthServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>identifier</servlet-name>
-        <url-pattern>/identifier</url-pattern>
+        <servlet-name>auth</servlet-name>
+        <url-pattern>/auth</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -51,4 +63,15 @@
         <servlet-name>catalogue</servlet-name>
         <url-pattern>/catalogue</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>dashboard</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.DashboardServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dashboard</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
 </web-app>

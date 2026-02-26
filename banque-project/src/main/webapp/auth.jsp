@@ -81,22 +81,22 @@
 </head>
 <body>
 <div class="login-container">
-  <h2>Se connecter</h2>
+  <h2>login</h2>
   <% if (request.getAttribute("errorMessage") != null) { %>
   <div class="error-message">
     <%= request.getAttribute("errorMessage") %>
   </div>
   <% } %>
-  <form action="identifier" method="post">
+  <form action="auth" method="post">
     <label>Email</label>
-    <input type="text" name="email" placeholder="Votre email">
+    <input type="text" name="email" placeholder="your email">
 
-    <label>Mot de passe</label>
-    <input type="password" name="mdp" placeholder="Votre mot de passe">
+    <label>password</label>
+    <input type="password" name="password" placeholder="your password">
 
-    <button type="submit">S'identifier</button>
+    <button type="submit">login</button>
   </form>
-  <a href="inscrir">S'inscrire</a>
+  <a href="register">register</a>
 </div>
 </body>
 </html>

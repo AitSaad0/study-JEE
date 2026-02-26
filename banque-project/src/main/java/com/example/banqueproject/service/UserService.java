@@ -1,9 +1,9 @@
 package com.example.banqueproject.service;
 
-import com.example.banqueproject.entity.Clients;
+import com.example.banqueproject.entity.Users;
 
 public interface UserService {
-    public boolean register(Clients client);
-    public Clients authenticate(String email, String mdp);
+    public boolean register(Users client);
+    public Users authenticate(String email, String mdp);
 
 }
