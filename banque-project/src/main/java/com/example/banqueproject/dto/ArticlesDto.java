@@ -3,44 +3,44 @@ package com.example.banqueproject.dto;
 public class ArticlesDto {
 
     private int codeArticle;
-    private String designation;
+    private String reference;
     private double prix;
     private Integer stock;
     private Integer categorie;
     private String photo;
-    private String titre;
-    private String auteur;
+    private String title;
+    private String author;
 
     public ArticlesDto() {}
 
-    public ArticlesDto(int codeArticle, String designation, double prix, Integer stock, Integer categorie, String photo, String titre, String auteur) {
+    public ArticlesDto(int codeArticle, String reference, double prix, Integer stock, Integer categorie, String photo, String title, String author) {
         this.codeArticle = codeArticle;
-        this.designation = designation;
+        this.reference = reference;
         this.prix = prix;
         this.stock = stock;
         this.categorie = categorie;
         this.photo = photo;
-        this.titre = titre;
-        this.auteur = auteur;
+        this.title = title;
+        this.author = author;
     }
 
     // Constructor sans ID (pour insert)
-    public ArticlesDto(String designation, double prix, Integer stock, Integer categorie, String photo, String titre, String auteur) {
-        this.designation = designation;
+    public ArticlesDto(String reference, double prix, Integer stock, Integer categorie, String photo, String title, String author) {
+        this.reference = reference;
         this.prix = prix;
         this.stock = stock;
         this.categorie = categorie;
         this.photo = photo;
-        this.titre = titre;
-        this.auteur = auteur;
+        this.title = title;
+        this.author = author;
     }
 
     // Getters & Setters
     public int getCodeArticle() { return codeArticle; }
     public void setCodeArticle(int codeArticle) { this.codeArticle = codeArticle; }
 
-    public String getDesignation() { return designation; }
-    public void setDesignation(String designation) { this.designation = designation; }
+    public String getReference() { return reference; }
+    public void setReference(String reference) { this.reference = reference; }
 
     public double getPrix() { return prix; }
     public void setPrix(double prix) { this.prix = prix; }
@@ -54,9 +54,9 @@ public class ArticlesDto {
     public String getPhoto() { return photo; }
     public void setPhoto(String photo) { this.photo = photo; }
 
-    public String getTitre() { return titre; }
-    public void setTitre(String titre) { this.titre = titre; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getAuteur() { return auteur; }
-    public void setAuteur(String auteur) { this.auteur = auteur; }
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author = author; }
 }

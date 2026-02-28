@@ -13,14 +13,13 @@ import java.util.List;
 
 public class ArticlesDAOImpl implements ArticlesDAO {
 
-    private Connection conn;
 
     @Override
     public List<ArticlesDto> findByCategorie(int idCat){
-        conn = DBConnection.getConnection();
         String sql = "SELECT * FROM articles WHERE categorie = ?";
         List<ArticlesDto> articles = new ArrayList<>();
-        try(PreparedStatement st = conn.prepareStatement(sql)){
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement st = conn.prepareStatement(sql)){
             st.setInt(1, idCat);
             ResultSet set = st.executeQuery();
             while(set.next()){
@@ -31,8 +30,8 @@ public class ArticlesDAOImpl implements ArticlesDAO {
                         set.getInt("stock"),
                         set.getInt("categorie"),
                         set.getString("photo"),
-                        set.getString("titre"),
-                        set.getString("auteur")
+                        set.getString("title"),
+                        set.getString("author")
                 );
                 articles.add(article);
             }
@@ -49,9 +48,9 @@ public class ArticlesDAOImpl implements ArticlesDAO {
     public List<ArticlesDto> findAll() {
         List<ArticlesDto> articles = new ArrayList<>();
         String sql = "SELECT * FROM articles";
-        conn = DBConnection.getConnection();
 
-        try (PreparedStatement st = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement st = conn.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
@@ -62,8 +61,8 @@ public class ArticlesDAOImpl implements ArticlesDAO {
                         rs.getObject("stock", Integer.class),      // NULL-safe
                         rs.getObject("categorie", Integer.class),  // NULL-safe
                         rs.getString("photo"),
-                        rs.getString("titre"),
-                        rs.getString("auteur")
+                        rs.getString("title"),
+                        rs.getString("author")
                 );
                 articles.add(article);
             }

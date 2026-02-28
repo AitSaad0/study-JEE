@@ -10,15 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAOImpl implements UserDAO {
-    private Connection conn;
 
     @Override
     public boolean save(Users user){
-        conn = DBConnection.getConnection();
 
         String sql = "INSERT INTO users (email, name, address, zip, city, tel, password) values (?,?,?,?,?,?,?)";
 
-        try(PreparedStatement pstm = conn.prepareStatement(sql)){
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql)){
             pstm.setString(1, user.getEmail());
             pstm.setString(2, user.getName());
             pstm.setString(3, user.getAddress());
@@ -41,10 +40,10 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Users findByEmail(String email) {
-        conn = DBConnection.getConnection();
         String sql = "SELECT * FROM users WHERE email = ?";
 
-        try (PreparedStatement pstm = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstm = conn.prepareStatement(sql)) {
 
             pstm.setString(1, email);
             try (ResultSet rs = pstm.executeQuery()) {

@@ -3,25 +3,25 @@ package com.example.banqueproject.entity;
 public class Articles {
 
     private int codeArticle;
-    private String designation;
+    private String reference;
     private double prix;
     private Integer stock;
     private Integer categorie;
     private String photo;
-    private String titre;
-    private String auteur;
+    private String title;
+    private String author;
 
     // ===== Constructors =====
     public Articles() {}
 
-    public Articles(String designation, double prix, Integer stock, Integer categorie, String photo, String titre, String auteur) {
-        this.designation = designation;
+    public Articles(String reference, double prix, Integer stock, Integer categorie, String photo, String title, String author) {
+        this.reference = reference;
         this.prix = prix;
         this.stock = stock;
         this.categorie = categorie;
         this.photo = photo;
-        this.titre = titre;
-        this.auteur = auteur;
+        this.title = title;
+        this.author = author;
     }
 
     // ===== Getters & Setters =====
@@ -33,12 +33,12 @@ public class Articles {
         this.codeArticle = codeArticle;
     }
 
-    public String getDesignation() {
-        return designation;
+    public String getReference() {
+        return reference;
     }
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public double getPrix() {
@@ -73,19 +73,19 @@ public class Articles {
         this.photo = photo;
     }
 
-    public String getTitre() {
-        return titre;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getAuteur() {
-        return auteur;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

@@ -12,16 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesDAOImpl implements CategoriesDao {
-    private Connection conn ;
 
 
     @Override
     public List<Categories> findAll() {
-        conn = DBConnection.getConnection();
         List<Categories> liste = new ArrayList<>();
         String sql = "SELECT idCat, cat FROM categories";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {

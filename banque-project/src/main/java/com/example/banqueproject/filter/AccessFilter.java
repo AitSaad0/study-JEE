@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+
 public class AccessFilter implements Filter {
 
     @Override
@@ -16,22 +17,22 @@ public class AccessFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        HttpSession session = request.getSession(false);
-        String path = request.getRequestURI();
+        String path = request.getRequestURI()
+                .substring(request.getContextPath().length());
 
-        // Public resources
+        // Always allow public paths through
         if (PathLooper.is_public(path)) {
             chain.doFilter(request, response);
             return;
         }
 
-        // Private + authenticated
+        // Everything else requires authentication
+        HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("user") != null) {
             chain.doFilter(request, response);
             return;
         }
 
-        // Not authenticated
         response.sendRedirect(request.getContextPath() + "/auth");
     }
 }

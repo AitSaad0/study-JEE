@@ -74,4 +74,41 @@
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>detail</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.DetailServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>detail</servlet-name>
+        <url-pattern>/detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BuyServlet</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.BuyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuyServlet</servlet-name>
+        <url-pattern>/buy</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CommandesServlet</servlet-name>
+        <servlet-class>com.example.banqueproject.controller.CommandesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CommandesServlet</servlet-name>
+        <url-pattern>/commandes</url-pattern>
+    </servlet-mapping>
+
 </web-app>

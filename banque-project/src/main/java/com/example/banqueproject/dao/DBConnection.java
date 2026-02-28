@@ -1,36 +1,39 @@
 package com.example.banqueproject.dao;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBConnection {
-    private static Connection connection;
+
+    private static HikariDataSource dataSource;
 
     public static void init() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/bank_db",
-                    "saad",
-                    "Saad@1234"
-            );
-            System.out.println("DB Connected!");
-        } catch (Exception e) {
-            System.out.println("problem is here");
-            e.printStackTrace();
-        }
-    }
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/bank_db?useSSL=false&serverTimezone=UTC");
+        config.setUsername("saad");
+        config.setPassword("Saad@1234");
 
-    public static Connection getConnection() {
-        return connection;
+        config.setMaximumPoolSize(5);
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(30000);
+        config.setConnectionTimeout(20000);
+        config.setMaxLifetime(1800000);
+
+        dataSource = new HikariDataSource(config);
+        System.out.println("Connection pool initialized");
     }
 
     public static void close() {
-        try {
-            if (connection != null) connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
+            System.out.println("Connection pool closed");
         }
     }
-}
 
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection(); // borrows from pool, auto-returned on close()
+    }
+}

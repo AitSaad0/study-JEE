@@ -10,13 +10,13 @@ public class ArticlesMapper {
 
         ArticlesDto dto = new ArticlesDto();
         dto.setCodeArticle(article.getCodeArticle());
-        dto.setDesignation(article.getDesignation());
+        dto.setReference(article.getReference());
         dto.setPrix(article.getPrix());
         dto.setStock(article.getStock());
         dto.setCategorie(article.getCategorie());
         dto.setPhoto(article.getPhoto());
-        dto.setTitre(article.getTitre());
-        dto.setAuteur(article.getAuteur());
+        dto.setTitle(article.getTitle());
+        dto.setAuthor(article.getAuthor());
 
         return dto;
     }
@@ -27,13 +27,13 @@ public class ArticlesMapper {
 
         Articles article = new Articles();
         article.setCodeArticle(dto.getCodeArticle());
-        article.setDesignation(dto.getDesignation());
+        article.setReference(dto.getReference());
         article.setPrix(dto.getPrix());
         article.setStock(dto.getStock());
         article.setCategorie(dto.getCategorie());
         article.setPhoto(dto.getPhoto());
-        article.setTitre(dto.getTitre());
-        article.setAuteur(dto.getAuteur());
+        article.setTitle(dto.getTitle());
+        article.setAuthor(dto.getAuthor());
 
         return article;
     }

@@ -1,6 +1,6 @@
 package com.example.banqueproject.controller;
 
-import com.example.banqueproject.dto.PrintedArticleDto;
+import com.example.banqueproject.dto.ArticlesDto;
 import com.example.banqueproject.entity.Categories;
 import com.example.banqueproject.service.ArticlesService;
 import com.example.banqueproject.service.CategoriesService;
@@ -35,16 +35,16 @@ public class CatalogueServlet extends HttpServlet {
 
         List<Categories> categories = categoriesService.getAllCategories();
         session.setAttribute("categories", categories);
-        List<PrintedArticleDto> printedArticles;
+        List<ArticlesDto> articles;
         try {
             if (idCatStr != null && !idCatStr.isEmpty() && !idCatStr.equalsIgnoreCase("all")) {
                 int idCat = Integer.parseInt(idCatStr);
-                printedArticles = articlesService.getAllArticlesByCategory(idCat);
+                articles = articlesService.getAllArticlesByCategory(idCat);
             } else {
-                printedArticles = articlesService.getAllArticles();
+                articles = articlesService.getAllArticles();
             }
 
-            session.setAttribute("printedArticles", printedArticles);
+            session.setAttribute("articles", articles);
 
         } catch (NoSuchElementException e) {
             RequestDispatcher rd = request.getRequestDispatcher("/catalogue.jsp?category=all");
